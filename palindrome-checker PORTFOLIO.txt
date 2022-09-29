@@ -1,0 +1,27 @@
+function palindrome(str) {
+let alterdStr = str.toLowerCase().match(/[a-z]|[0-9]/g);
+
+for(let i=0; i<alterdStr.length;i++){
+  let backIndex = alterdStr.length-1;
+  if(alterdStr[i] === alterdStr[backIndex-i] == false){
+    return false;
+  }
+}
+return true;
+}
+
+console.log(palindrome("0_0 (: /-\ :) 0-0"));
+
+/*
+NOTES
+Make everything lowercase and only match letters and numbers
+  -toLowerCase and match(\W) (to match letters and numbers)
+
+Once it is in an array format, then you can copy the array, back to front into a seperate array, make both arrays strings, then use an if statement to determine if they are identical
+
+OR you could always try to compare array elements to one another simultaneously and say if theres any false? return false otherwise return true
+
+
+
+
+*/
