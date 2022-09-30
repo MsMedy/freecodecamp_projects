@@ -1,0 +1,26 @@
+function rot13(str) {
+
+let strArr = str.split("");
+let regex = /[A-Z]/;
+
+for(let elm in strArr){
+  if(strArr[elm].match(regex) != null){ 
+    if(str.charCodeAt(elm) + 13 < 91){
+      let newLtr = String.fromCharCode(str.charCodeAt(elm) + 13);
+      strArr.splice(elm, 1,newLtr);
+    }
+    else if(str.charCodeAt(elm) + 13 >= 91){
+      let newLtr2 = String.fromCharCode(str.charCodeAt(elm) - 13);
+      strArr.splice(elm, 1,newLtr2);
+    }
+  }
+}
+
+return strArr.join("");
+
+}
+console.log(rot13("SERR PBQR PNZC"));
+
+//line 13 and 14 can also read: 
+//line 13:let newChar = str.charCodeAt(elm) + 13; //added line 14 to 13 here
+//line 14: let newC = newChar - 26; //or - 91 + 65
