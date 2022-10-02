@@ -1,0 +1,20 @@
+function telephoneCheck(str) {
+
+return /(^1?(\s?)(\(\d{3}\)\s?)(\s|\d{3})(\s|\-)(\d{4}))|(^1?(\s?)(\d{10})$)|^1?(\s)(\d{3})(\s\d{3})(\s\d{4})|^1?(\s?)(\d{3})\-(\d{3})\-(\d{4})/.test(str);
+
+}
+
+console.log(telephoneCheck("1 555-555-5555"));
+
+/*
+NOTES
+"1 555-555-5555"
+"5555555555" sep regex
+one long regex
+
+may or may not have a 1 at the beginning of the string
+may or may not have a parentheses around first set of numbers
+must have two sets of a number
+and one set of 4
+
+*/
