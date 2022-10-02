@@ -1,0 +1,51 @@
+function checkCashRegister(price, cash, cid) {
+
+var changeNeeded = cash-price;
+var values = [.01, .05, .10, .25, 1,5, 10, 20, 100];
+var withdrawnMny = [];
+
+let firstCheck = cid.reduce((previous,current) =>
+    previous + current[1],
+    0,
+  ); //sums all values of drawer for
+
+if(firstCheck === changeNeeded){
+  return {["status"]: "CLOSED", ["change"]:cid};
+} //second scenario
+
+if(firstCheck < changeNeeded){
+  return {["status"]: "INSUFFICIENT_FUNDS", ["change"]:[]};
+};//if insufficient funds
+
+for(let i = cid.length-1; i >= 0; i--){ 
+  var availChange = cid[i][1];
+  var convertedAmt = Math.floor(availChange/values[i]);
+  var count=0;
+for(let j = convertedAmt; j > 0;j--){
+  if(convertedAmt > 0 && values[i] <= changeNeeded.toFixed(2)){
+    changeNeeded -= values[i]; 
+    availChange -= values[i]; 
+    convertedAmt-=1;
+    count += values[i];
+  }
+} 
+withdrawnMny.push([cid[i][0], count]);
+}
+
+let withdrawnMny2 = withdrawnMny.filter(function(elem){
+  return elem[1] != 0;
+})//formats final array
+
+let secondCheck = withdrawnMny.reduce((previous,current) =>
+    previous + current[1],
+    0,
+  );//sums final array
+
+if(secondCheck.toFixed(2) != cash - price){
+  return {status: "INSUFFICIENT_FUNDS", change: []};
+} //if can't return exact change
+
+return {["status"]: "OPEN", ["change"]:withdrawnMny2};
+}//if none of the scenarios apply? return final array
+
+console.log(checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
